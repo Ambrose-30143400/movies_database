@@ -1,6 +1,7 @@
 # movies_database
 A Movie Database
 A movie database is a structured collection of information related to movies, including details about the movies themselves (such as title, release year, genre, and ratings), as well as associated data about the people involved in their creation and performance, like directors, actors, and genres. The primary goal of a movie database is to store, organize, and retrieve relevant information in a way that allows users to easily search, browse, and analyze different aspects of the film industry. It can serve various purposes, including cataloging movies, tracking actors' and directors' careers, understanding film trends, or providing movie recommendations. The purpose of this research project was to design and implement a movie database system that enables users to view movies, browse through different genres, and watch movies online, similar to Netflix. 
+![image](https://github.com/user-attachments/assets/c17525cf-7e01-43eb-8372-3c7010132c8e)
 # Aim and Objectives of the Study
 The aim is to create a RESTful API that exposes basic CRUD operations (Create, Read, Update, Delete) for managing movie records and related entities such as directors, actors, and genres. The API will provide endpoints for users to interact with the movie data, and the project will follow software engineering best practices to ensure maintainability, scalability, and readability. The objectives are listed thus
 i.	Develop a RESTful API that facilitates efficient data management through CRUD operations for movies, actors, directors, and genres.
@@ -68,6 +69,9 @@ def home():
     cursor.close()
     conn.close()
     return jsonify(movies)
+
+![image](https://github.com/user-attachments/assets/3a69b28f-0d41-4a4e-9c3f-1eb5bf9d81e5)
+
 # API Route: User Registration (POST /api/signup)
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -127,6 +131,8 @@ def signup():
     finally:
         cursor.close()
         conn.close()
+
+![image](https://github.com/user-attachments/assets/a71b42ad-c853-439b-8f89-49ed55a27b91)
 
 # API Route: User Login (POST /api/login)
 @app.route('/api/login', methods=['POST'])
@@ -267,6 +273,7 @@ def movie_details(movie_id):
         return jsonify({'status': 'success', 'movie': movie}), 200
     else:
         return jsonify({'status': 'error', 'message': 'Movie not found'}), 404
+![image](https://github.com/user-attachments/assets/089874f6-53fc-4b84-9dce-87253bb1d2ef)
 
 # API Route: Dashboard (GET /api/dashboard)
 @app.route('/api/dashboard', methods=['GET'])
