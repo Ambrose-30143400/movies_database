@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Movie</title>
+    <!-- Include any CSS libraries -->
+    {% include 'csslibraries.html' %}
+</head>
+
+<body>
+    <!-- Include header -->
+    {% include 'header.html' %}
+
+    <div class="container mt-5">
+        <h2>Edit Movie - {{ movie.title }}</h2>
+
+        <!-- Flash message for success or errors -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="alert alert-info">
+                    {% for category, message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('edit_movie', movie_id=movie.movie_id) }}" method="POST">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" class="form-control" value="{{ movie['title'] }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="5" required>{{ movie['description'] }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <input type="number" id="rating" name="rating" class="form-control" value="{{ movie['rating'] }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="genres">Genres</label>
+                <input type="text" id="genres" name="genres" class="form-control" value="{{ movie['genres'] }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="video_link">Video Link (YouTube)</label>
+                <input type="text" id="video_link" name="video_link" class="form-control" value="{{ movie['video_link'] }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Image (Cover Image File Name)</label>
+                <input type="text" id="image" name="image" class="form-control" value="{{ movie['images'] }}" required>
+                <small class="form-text text-muted">Enter the filename (e.g., cover.jpg) stored in your static/images folder.</small>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="{{ url_for('edit_movie', movie_id=movie.movie_id) }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Include footer -->
+    {% include 'footer.html' %}
+
+    <!-- Include JS libraries -->
+    {% include 'jslibraries.html' %}
+</body>
+
+</html>

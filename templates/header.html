@@ -1,0 +1,69 @@
+<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="header__content">
+						<!-- header logo -->
+						<a href="index.html" class="header__logo">
+							<img src="{{ url_for('static', filename='img/ambrose.png') }}" alt="Logo" style="width: 100%; height: 100px">
+						</a>
+						<!-- end header logo -->
+
+						<!-- header nav -->
+						<ul class="header__nav">
+							<li class="header__nav-item">
+								<a href="{{ url_for('home') }}" class="header__nav-link">Home</a>
+							</li>
+
+							<li class="header__nav-item">
+								<a href="pricing.html" class="header__nav-link">Pricing plan</a>
+							</li>
+						</ul>
+						<!-- end header nav -->
+
+						<!-- header auth -->
+						<div class="header__auth">
+							<form action="#" class="header__search">
+								<input class="header__search-input" type="text" placeholder="Search...">
+								<button class="header__search-button" type="button">
+									<i class="ti ti-search"></i>
+								</button>
+								<button class="header__search-close" type="button">
+									<i class="ti ti-x"></i>
+								</button>
+							</form>
+
+							<button class="header__search-btn" type="button">
+								<i class="ti ti-search"></i>
+							</button>
+
+
+							<!-- dropdown -->
+							<div class="header__profile">
+								<a class="header__sign-in header__sign-in--user" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="ti ti-user"></i>
+									<span>Account</span>
+								</a>
+
+								<ul class="dropdown-menu dropdown-menu-end header__dropdown-menu header__dropdown-menu--user">
+									<li><a href="{{ url_for('login') }}"><i class="ti ti-ghost"></i>Login</a></li>
+									<li><a href="{{ url_for('signup') }}"><i class="ti ti-stereo-glasses"></i>Signup</a></li>
+									<li><a href="#"><i class="ti ti-logout"></i>Logout</a></li>
+								</ul>
+							</div>
+							<!-- end dropdown -->
+						</div>
+						<!-- end header auth -->
+
+						<!-- header menu btn -->
+						<button class="header__btn" type="button">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+						<!-- end header menu btn -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>

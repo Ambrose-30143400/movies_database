@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from hotflix.volkovdesign.com/main/details.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 13 Mar 2025 01:37:33 GMT -->
+<head>
+	<!-- Include JS Libraries from the external file -->
+    {% include 'csslibraries.html' %}
+	<title>Movie Details</title>
+</head>
+
+<body>
+	 <!-- header -->
+    {% include 'header.html' %}
+    <!-- end header -->
+
+	<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Include JS Libraries from the external file -->
+    {% include 'csslibraries.html' %}
+    <title>{{ movie.title }} - Movie Details</title>
+</head>
+
+<body>
+    <!-- header -->
+    {% include 'header.html' %}
+    <!-- end header -->
+
+    <!-- details -->
+    <section class="section section--details">
+        <!-- details content -->
+        <div class="container">
+            <div class="row">
+                <!-- title -->
+                <div class="col-12">
+                    <h1 class="section__title section__title--head">{{ movie.title }}</h1>
+                </div>
+                <!-- end title -->
+
+                <!-- content -->
+                <div class="col-12 col-xl-6">
+                    <div class="item item--details">
+                        <div class="row">
+                            <!-- card cover -->
+                            <div class="col-12 col-sm-5 col-md-5 col-lg-4 col-xl-6 col-xxl-5">
+                                <div class="item__cover">
+                                    <img src="{{ url_for('static', filename='images/' + movie.images) }}" alt="{{ movie.title }} Cover">
+                                    <span class="item__rate item__rate--green">{{ movie.rating or 'N/A' }}</span>
+                                    <button class="item__favorite item__favorite--static" type="button"><i class="ti ti-bookmark"></i></button>
+                                </div>
+                            </div>
+                            <!-- end card cover -->
+
+                            <!-- card content -->
+                            <div class="col-12 col-md-7 col-lg-8 col-xl-6 col-xxl-7">
+                                <div class="item__content">
+                                    <ul class="item__meta">
+                                        <li><span>Director:</span> <a href="actor.html">{{ movie.director }}</a></li>
+                                        <li><span>Cast:</span>{{ movie.cast }}
+
+                                        </li>
+                                        <li><span>Genre:</span> {{ movie.genres }}
+
+                                        </li>
+                                        <li><span>Premiere:</span> {{ movie.release_date.year }}</li>
+                                        <li><span>Running time:</span> {{ movie.runtime }} min</li>
+                                        <li><span>Country:</span> <a href="catalog.html">{{ movie.country or 'N/A' }}</a></li>
+                                    </ul>
+
+                                    <div class="item__description">
+                                        <p>{{ movie.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end card content -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end content -->
+
+                <!-- player -->
+                <div class="col-12 col-xl-6">
+					<!-- YouTube Embedded Video -->
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ movie.video_link.split('v=')[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                </div>
+                <!-- end player -->
+            </div>
+        </div>
+        <!-- end details content -->
+    </section>
+    <!-- end details -->
+
+    <!-- footer -->
+    {% include "footer.html" %}
+    <!-- end footer -->
+
+    <!-- Include JS Libraries from the external file -->
+    {% include 'jslibraries.html' %}
+</body>
+
+</html>

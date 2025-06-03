@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Include JS Libraries from the external file -->
+    {% include 'csslibraries.html' %}
+	<title>Ambrose Movies Signup Page</title>
+</head>
+
+<body>
+	<!-- header -->
+	{% include 'header.html' %}
+	<!-- end header -->
+
+	<div class="sign section--bg" data-bg="img/bg/section__bg.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="sign__content">
+						<!-- registration form -->
+						<form action="{{ url_for('signup') }}" method="POST" class="sign__form">
+							<a href="index.html" class="sign__logo">
+								<img src="{{ url_for('static', filename='img/ambrose.png') }}" alt="Logo" style="width: 100%; height: 100px">
+								<div style="color: white">Register for a new membership and watch/post movies like never before</div>
+							</a>
+
+							{% with messages = get_flashed_messages(with_categories=true) %}
+    							{% if messages %}
+        							<ul class="flashes">
+            							{% for category, message in messages %}
+                							{% if category == "error" %}
+												<li class="alert alert-danger" style="color: red">{{ message }}</li>
+                							{% else %}
+                    							<li class="alert alert-success" style="color: green">{{ message }}</li>
+                							{% endif %}
+            							{% endfor %}
+        							</ul>
+    							{% endif %}
+							{% endwith %}
+
+							<div class="sign__group">
+								<input type="text" name="full_name" class="sign__input" placeholder="Full Name" required>
+							</div>
+
+							<div class="sign__group">
+								<input type="email" name="email" class="sign__input" placeholder="Email" required>
+							</div>
+
+							<div class="sign__group">
+								<input type="password" name="password" class="sign__input" placeholder="Password" required>
+							</div>
+
+							<div class="sign__group">
+								<input type="password" name="confirm_password" class="sign__input" placeholder="Confirm Password" required>
+							</div>
+
+							<div class="sign__group">
+								<input type="tel" name="phone" class="sign__input" placeholder="Phone Number" required>
+							</div>
+
+							<div class="sign__group sign__group--checkbox">
+								<input id="remember" name="remember" type="checkbox" checked="checked">
+								<label for="remember">I agree to the <a href="privacy.html">Privacy Policy</a></label>
+							</div>
+
+							<button class="sign__btn bg-warning" type="submit">Sign up</button>
+
+							<span class="sign__delimiter">or</span>
+
+							<div class="sign__social">
+								<a class="fb" href="#">Sign up with<i class="ti ti-brand-facebook"></i></a>
+								<a class="tw" href="#">Sign up with<i class="ti ti-brand-x"></i></a>
+								<a class="gl" href="#">Sign up with<i class="ti ti-brand-google"></i></a>
+							</div>
+
+							<span class="sign__text">Already have an account? <a href="{{ url_for('login') }}">Sign in!</a></span>
+						</form>
+						<!-- registration form -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+	{% include 'footer.html' %}
+	<!-- end footer -->
+</body>
+</html>

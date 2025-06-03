@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Include CSS Libraries -->
+    {% include 'csslibraries.html' %}
+</head>
+
+<body>
+    <!-- header -->
+    {% include 'header.html' %}
+    <!-- end header -->
+
+    <!-- home -->
+    <section class="home">
+        <div class="container">
+            <div class="row">
+                <!-- home title -->
+                <div class="col-12">
+                    <p style="color: white">user: {{ user_id }} </p>
+                    <h1 class="home__title"><b>My Movies</b></h1>
+                </div>
+                <!-- end home title -->
+
+                <!-- Add Movie Button -->
+                <div class="col-12">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMovieModal">
+                        Add Movie
+                    </button>
+                </div>
+
+                <!-- Movie Table -->
+                <div class="col-12">
+                    <div class="scroll-content">
+                        <table class="table table-responsive catalog__table" style="color: white">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Runtime</th>
+                                    <th>Genres</th>
+                                    <th>Cast</th>
+                                    <th>Director</th>
+                                    <th>Producer</th>
+                                    <th>Release Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody style="color: white">
+                                {% for movie in movies %}
+                                <tr>
+                                    <td>{{ movie.movie_id }}</td>
+                                    <td>
+                                        <img src="{{ url_for('static', filename='images/' + (movie.images if movie.images else 'default.jpg')) }}"
+                                             alt="Movie Image" width="50">
+                                    </td>
+                                    <td>
+                                        <a href="{{ url_for('movie_details', movie_id=movie.movie_id) }}">{{ movie.title }}</a>
+                                    </td>
+                                    <td style="color:white">{{ movie.runtime }}</td>
+                                    <td>{{ movie.genres }}</td>
+                                    <td>{{ movie.cast }}</td>
+                                    <td>{{ movie.director }}</td>
+                                    <td>{{ movie.producer }}</td>
+                                    <td>{{ movie.release_date }}</td>
+                                    <td>
+                                        <div class="catalog__btns">
+                                            <a href="{{ url_for('movie_details', movie_id=movie.movie_id) }}" class="catalog__btn catalog__btn--view">
+                                                <i class="ti ti-eye"></i>
+                                            </a>
+                                            <a href="{{ url_for('edit_movie', movie_id=movie.movie_id) }}" class="catalog__btn catalog__btn--edit">
+                                                <i class="ti ti-edit"></i>
+                                            </a>
+                                            <a href="{{ url_for('delete_movie', movie_id=movie.movie_id) }}" class="catalog__btn catalog__btn--delete">
+                                                <i class="ti ti-trash"></i>
+                                            </a>
+                                            <button type="button" data-bs-toggle="modal" class="catalog__btn catalog__btn--delete"
+                                                    data-bs-target="#modal-delete" onclick="deleteMovie({{ movie.movie_id }})">
+                                                <i class="ti ti-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end movie table -->
+            </div>
+        </div>
+    </section>
+    <!-- end home -->
+
+    <!-- Add Movie Modal -->
+    <div class="modal fade" id="addMovieModal" tabindex="-1" aria-labelledby="addMovieModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" style="background: white">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMovieModalLabel">Add New Movie</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('add_movie') }}" method="POST" enctype="multipart/form-data" class="p-3">
+    <!-- Hidden Inputs -->
+    <input type="hidden" name="user_id" value="1" class="visually-hidden"> <!-- Change dynamically -->
+    <input type="hidden" name="catalog_id" value="1" class="visually-hidden"> <!-- Change dynamically -->
+
+    <div class="mb-3">
+        <label class="form-label">Title:</label>
+        <input type="text" name="title" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Description:</label>
+        <textarea name="description" class="form-control" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Runtime (in minutes):</label>
+        <input type="number" name="runtime" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Release Date:</label>
+        <input type="date" name="release_date" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Genres:</label>
+        <input type="text" name="genres" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Cast:</label>
+        <input type="text" name="cast" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Director:</label>
+        <input type="text" name="director" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Producer:</label>
+        <input type="text" name="producer" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Keywords:</label>
+        <input type="text" name="keywords" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Upload Image:</label>
+        <input type="file" name="image" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Video Link:</label>
+        <input type="text" name="video_link" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Add Movie</button>
+</form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    {% include "footer.html" %}
+    <!-- end footer -->
+
+    <!-- Include JS Libraries -->
+    {% include 'jslibraries.html' %}
+</body>
+
+</html>
